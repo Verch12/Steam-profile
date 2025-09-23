@@ -1,44 +1,35 @@
 ﻿from PIL import Image
-
-# width, height = 150, 279_620
-# img = Image.new("1", (width, height), color=1)
-# img.save("output_150x279620_1bit.png", optimize=True)
-
 import os
 
-folder_path = "src2/"
-files = [f.replace(".jpg","") for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
-sorted_files = sorted(files, key=lambda x: tuple(map(int, x.split('_'))))
+def Сombination(folder_path, output_path):
+    files = [f.replace(".jpg","") for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+    sorted_files = sorted(files, key=lambda x: tuple(float(n) for n in x.split('_')))
 
-new_width = 750
+    new_width = 750
 
-# Открываем и масштабируем изображения
-images = []
-for path in sorted_files:
-    print(path)
-    img = Image.open(folder_path + path + ".jpg")
+    images = []
+    for path in sorted_files:
+        print(path)
+        img = Image.open(folder_path + path + ".jpg")
 
-    # Пропорциональное уменьшение по ширине
-    w_percent = new_width / img.width
-    new_height = int(img.height * w_percent)
-    resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+        w_percent = new_width / img.width
+        new_height = int(img.height * w_percent)
+        resized_img = img.resize((new_width, new_height), Image.LANCZOS)
 
-    images.append(resized_img)
+        images.append(resized_img)
 
-# Вычисляем итоговые размеры
-total_height = sum(img.height for img in images)
-final_width = new_width
-final_height = total_height
+    total_height = sum(img.height for img in images)
+    final_width = new_width
+    final_height = total_height
+    combined = Image.new("1", (final_width, final_height), color=1)
 
-# Создаём холст
-combined = Image.new("1", (final_width, final_height), color=1)
+    y_offset = 0
+    for img in images:
+        combined.paste(img, (0, y_offset))
+        y_offset += img.height
 
-# Склеиваем вертикально
-y_offset = 0
-for img in images:
-    combined.paste(img, (0, y_offset))
-    y_offset += img.height
+    combined.save(output_path, optimize=True)
+    print("✅ Готово: output.png")
 
-# Сохраняем
-combined.save("output.png", optimize=True)
-print("✅ Готово: output.png")
+if __name__ == '__main__':
+    Сombination("../Detail/PNG/", "../Intermediate/output.png")
