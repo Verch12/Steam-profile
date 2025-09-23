@@ -9,7 +9,6 @@ def Сombination(folder_path, output_path):
 
     images = []
     for path in sorted_files:
-        print(path)
         img = Image.open(folder_path + path + ".jpg")
 
         w_percent = new_width / img.width

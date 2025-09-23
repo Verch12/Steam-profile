@@ -64,7 +64,7 @@ def  Download(url, folder_path, chapter):
         url = nextUrl
         chapter -= 1
         if chapter != 0: print(f"Next URL ---> {nextUrl}\n")
-
+    print("✅ Готово: Downloads")
 
 # https://a.zazaza.me/da__ia_sakamoto__a_chto_/vol1/1
 if __name__ == "__main__":

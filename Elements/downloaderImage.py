@@ -35,8 +35,10 @@ def  Download(url, folder_path):
         else:
             print(url)
             print(f"Ошибка: статус {response.status_code}")
+    print("✅ Готово: Downloads")
 
 if __name__ == "__main__":
-    urlWebsite = input("Введите сылку на последнюю картинку с мангой в главе: ")
+    urlWebsite = input("Введите ссылку на последнюю картинку с мангой в главе: ")
     Download(urlWebsite, "../Detail/JPG/")
 # https://c3.mangabuff.ru/img2/chapters/kage-no-jitsuryokusha-ni-naritakute/3/10.1/22.jpg
+# https://c3.mangabuff.ru/img2/chapters/heugmag-eul-beolineun-desilpaehaessda/1/1/4.jpeg,https://c3.mangabuff.ru/img2/chapters/heugmag-eul-beolineun-desilpaehaessda/1/2/4.jpg,https://c3.mangabuff.ru/img2/chapters/heugmag-eul-beolineun-desilpaehaessda/1/3/4.jpg
